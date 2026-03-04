@@ -9,7 +9,7 @@ Built for the Rayeva AI internship assignment. A full-stack AI platform for sust
 ## What's inside
 
 **Module 1 — AI Product Categorizer** (fully built)
-Drop in a product name + description and the AI assigns a category, generates SEO tags, picks sustainability filters, and gives it a score. The score itself is deterministic Python logic, not AI — keeps it auditable.
+Drop in a product name + description and the AI assigns a category, generates SEO tags, picks sustainability filters, and gives it a score. The score itself is deterministic Python logic, not AI ; keeps it auditable.
 
 **Module 2 — B2B Proposal Generator** (fully built)
 Two-step AI pipeline: first call picks the product mix, then server-side Python validates all the math (GST, shipping, discounts), then a second AI call adds the impact story. Frontend has PDF export.
