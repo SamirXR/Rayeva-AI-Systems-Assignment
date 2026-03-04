@@ -1,4 +1,4 @@
-﻿# Rayeva AI Systems Assignment
+# Rayeva AI Systems Assignment
 
 Built for the Rayeva AI internship assignment. A full-stack AI platform for sustainable commerce — product categorization, B2B proposal generation, and impact reporting.
 
@@ -52,7 +52,7 @@ The `ai_logs` table captures every single AI call — prompt version, token coun
 A few deliberate choices I made here:
 
 **Constrained JSON output**
-Rather than asking the model to "return JSON" and then parsing the response (which breaks on formatting quirks), I pass the expected Pydantic schema as part of the request config. The model is forced to produce output that matches the schema structure exactly — zero parsing failures.
+Rather than asking the model to "return JSON" and then parsing the response (which breaks on formatting quirks), I pass the expected Pydantic schema as part of the request config. The model is forced to produce output that matches the schema structure exactly with zero parsing failures.
 
 **Retry with error context**
 If an AI call fails validation (e.g. returns a category that's not in the predefined list), the retry doesn't just replay the same prompt. It injects the specific error into the next attempt: "Previous attempt returned 'eco-friendly' — that's not a valid category. Valid options are: ...". Gives the model something to actually fix.
