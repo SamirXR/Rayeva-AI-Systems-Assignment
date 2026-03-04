@@ -3,6 +3,7 @@ Rayeva AI — Proposal API Endpoints (Module 2)
 Generate B2B sustainable product proposals with AI-powered product mix and impact analysis.
 """
 
+import asyncio
 from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy.orm import Session
 
@@ -33,9 +34,15 @@ async def generate_proposal(
     service = ProposalService(db=db, correlation_id=correlation_id)
 
     try:
-        result = await service.generate_proposal(request_body)
+        # asyncio.shield prevents client-disconnect cancellation from killing
+        # a long-running AI pipeline (30-90s). The pipeline always runs to
+        # completion; the client just gets the result whenever it finishes.
+        result = await asyncio.shield(service.generate_proposal(request_body))
         return result
-    except Exception as e:
+    except asyncio.CancelledError:
+        # Client disconnected mid-request — pipeline is still running in background
+        raise HTTPException(status_code=503, detail="Request cancelled by client")
+    except BaseException as e:
         raise HTTPException(status_code=500, detail=f"Proposal generation failed: {str(e)}")
 
 

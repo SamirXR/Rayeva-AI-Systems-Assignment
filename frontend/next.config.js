@@ -1,13 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  async rewrites() {
-    return [
-      {
-        source: '/api/:path*',
-        destination: 'http://localhost:8000/api/:path*',
-      },
-    ];
-  },
+  // API calls go directly from browser to http://localhost:8000 via NEXT_PUBLIC_API_URL.
+  // No rewrite proxy needed — it had a ~60s socket timeout that killed long AI requests.
 };
 
 module.exports = nextConfig;

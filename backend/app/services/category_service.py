@@ -23,7 +23,7 @@ from app.schemas.category import (
     ProductCategorizationResponse,
     PrimaryCategory,
 )
-from app.prompts.category_v1 import SYSTEM_PROMPT, build_user_prompt, PROMPT_VERSION
+from app.prompts.category_v2 import SYSTEM_PROMPT, build_user_prompt, PROMPT_VERSION
 
 logger = structlog.get_logger()
 
@@ -145,7 +145,7 @@ class CategoryService:
             module="category",
             prompt_version=PROMPT_VERSION,
             system_prompt=SYSTEM_PROMPT,
-            user_prompt=build_user_prompt(product_input.name, product_input.description),
+            user_prompt=build_user_prompt(product_input.name, product_input.description, price=product_input.price),
             output_schema=AICategoryOutput,
         )
 

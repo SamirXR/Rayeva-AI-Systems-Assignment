@@ -29,7 +29,10 @@ class GeminiProvider(AIProvider):
 
     def __init__(self):
         settings = get_settings()
-        self.client = genai.Client(api_key=settings.google_api_key)
+        self.client = genai.Client(
+            vertexai=True,
+            api_key=settings.google_cloud_api_key,
+        )
         self.model = settings.ai_model
         logger.info("gemini_provider_initialized", model=self.model)
 
@@ -67,7 +70,7 @@ class GeminiProvider(AIProvider):
         contents = [
             types.Content(
                 role="user",
-                parts=[types.Part.from_text(user_prompt)],
+                parts=[types.Part(text=user_prompt)],
             )
         ]
 
@@ -126,6 +129,7 @@ class GeminiProvider(AIProvider):
             temperature=temperature,
             top_p=0.95,
             max_output_tokens=65535,
+            tools=[types.Tool(google_search=types.GoogleSearch())],
             thinking_config=types.ThinkingConfig(thinking_level=thinking_level),
             safety_settings=[
                 types.SafetySetting(category="HARM_CATEGORY_HATE_SPEECH", threshold="OFF"),
@@ -138,7 +142,7 @@ class GeminiProvider(AIProvider):
         contents = [
             types.Content(
                 role="user",
-                parts=[types.Part.from_text(user_prompt)],
+                parts=[types.Part(text=user_prompt)],
             )
         ]
 

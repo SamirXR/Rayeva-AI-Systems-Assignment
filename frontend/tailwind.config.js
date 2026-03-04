@@ -4,19 +4,36 @@ module.exports = {
     './app/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
-        brand: {
-          50: '#f0fdf4',
-          100: '#dcfce7',
-          200: '#bbf7d0',
-          500: '#22c55e',
-          600: '#16a34a',
-          700: '#15803d',
-          800: '#166534',
-          900: '#14532d',
+        surface: {
+          DEFAULT: 'var(--surface)',
+          50: 'var(--surface-50)',
+          100: 'var(--surface-100)',
+          200: 'var(--surface-200)',
+          300: 'var(--surface-300)',
+          400: 'var(--surface-400)',
         },
+        fg: {
+          DEFAULT: 'var(--fg)',
+          secondary: 'var(--fg-secondary)',
+          muted: 'var(--fg-muted)',
+        },
+        accent: {
+          DEFAULT: 'var(--accent)',
+          hover: 'var(--accent-hover)',
+        },
+        success: 'var(--success)',
+        danger: 'var(--danger)',
+        warn: 'var(--warn)',
+        info: 'var(--info)',
+        ring: 'var(--ring)',
+      },
+      fontFamily: {
+        mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
       },
     },
   },

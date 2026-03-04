@@ -23,7 +23,7 @@ from app.schemas.proposal import (
     ProposalResponse,
     CostBreakdownResponse,
 )
-from app.prompts.proposal_v1 import (
+from app.prompts.proposal_v2 import (
     PROMPT_VERSION,
     PRODUCT_MIX_SYSTEM_PROMPT,
     IMPACT_SYSTEM_PROMPT,

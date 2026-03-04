@@ -2,43 +2,248 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: system-ui, -apple-system, sans-serif;
-  background-color: #f8faf9;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* ── Light mode (default) ── */
+:root {
+  --surface: #ffffff;
+  --surface-50: #f9fafb;
+  --surface-100: #f3f4f6;
+  --surface-200: #e5e7eb;
+  --surface-300: #d1d5db;
+  --surface-400: #c0c4cc;
+  --fg: #111827;
+  --fg-secondary: #4b5563;
+  --fg-muted: #9ca3af;
+  --accent: #111827;
+  --accent-hover: #374151;
+  --success: #16a34a;
+  --danger: #dc2626;
+  --warn: #d97706;
+  --info: #2563eb;
+  --ring: rgba(0, 0, 0, 0.08);
+  --badge-success-bg: #dcfce7;
+  --badge-success-fg: #166534;
+  --badge-success-border: #bbf7d0;
+  --badge-info-bg: #dbeafe;
+  --badge-info-fg: #1e40af;
+  --badge-info-border: #bfdbfe;
+  --badge-warn-bg: #fef3c7;
+  --badge-warn-fg: #92400e;
+  --badge-warn-border: #fde68a;
+  --badge-danger-bg: #fee2e2;
+  --badge-danger-fg: #991b1b;
+  --badge-danger-border: #fecaca;
+  --btn-primary-bg: #111827;
+  --btn-primary-fg: #ffffff;
+  --btn-primary-hover: #374151;
+  --spinner-track: rgba(0, 0, 0, 0.1);
+  --spinner-head: #111827;
+  --chip-bg: #f3f4f6;
+  --chip-fg: #4b5563;
+  --chip-hover: #e5e7eb;
+  --chip-active-bg: #111827;
+  --chip-active-fg: #ffffff;
+  --code-bg: #f9fafb;
+  --code-border: #e5e7eb;
+  --progress-track: #e5e7eb;
 }
 
+/* ── Dark mode ── */
+.dark {
+  --surface: #0a0a0a;
+  --surface-50: #111111;
+  --surface-100: #161616;
+  --surface-200: #1c1c1c;
+  --surface-300: #242424;
+  --surface-400: #2e2e2e;
+  --fg: #e5e5e5;
+  --fg-secondary: #888888;
+  --fg-muted: #555555;
+  --accent: #e5e5e5;
+  --accent-hover: #ffffff;
+  --success: #4ade80;
+  --danger: #f87171;
+  --warn: #fbbf24;
+  --info: #60a5fa;
+  --ring: rgba(255, 255, 255, 0.06);
+  --badge-success-bg: rgba(74, 222, 128, 0.1);
+  --badge-success-fg: #4ade80;
+  --badge-success-border: rgba(74, 222, 128, 0.2);
+  --badge-info-bg: rgba(96, 165, 250, 0.1);
+  --badge-info-fg: #60a5fa;
+  --badge-info-border: rgba(96, 165, 250, 0.2);
+  --badge-warn-bg: rgba(251, 191, 36, 0.1);
+  --badge-warn-fg: #fbbf24;
+  --badge-warn-border: rgba(251, 191, 36, 0.2);
+  --badge-danger-bg: rgba(248, 113, 113, 0.1);
+  --badge-danger-fg: #f87171;
+  --badge-danger-border: rgba(248, 113, 113, 0.2);
+  --btn-primary-bg: #ffffff;
+  --btn-primary-fg: #000000;
+  --btn-primary-hover: #e5e5e5;
+  --spinner-track: rgba(255, 255, 255, 0.1);
+  --spinner-head: #ffffff;
+  --chip-bg: #242424;
+  --chip-fg: #888888;
+  --chip-hover: #2e2e2e;
+  --chip-active-bg: #ffffff;
+  --chip-active-fg: #000000;
+  --code-bg: #111111;
+  --code-border: #242424;
+  --progress-track: #242424;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--surface);
+  color: var(--fg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+::selection {
+  background-color: var(--accent);
+  color: var(--surface);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--surface);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--surface-400);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--fg-muted);
+}
+
+/* ── Components ── */
 .card {
-  @apply bg-white rounded-xl border border-gray-200 shadow-sm p-6;
+  background: var(--surface-100);
+  border: 1px solid var(--surface-300);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.card:hover {
+  border-color: var(--surface-400);
+  box-shadow: 0 0 20px var(--ring);
 }
 
 .btn-primary {
-  @apply bg-brand-600 hover:bg-brand-700 text-white font-medium px-6 py-2.5 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed;
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-fg);
+  font-weight: 500;
+  padding: 0.625rem 1.5rem;
+  border-radius: 0.5rem;
+  transition: all 0.15s ease;
+  border: none;
+  cursor: pointer;
+}
+.btn-primary:hover {
+  background: var(--btn-primary-hover);
+}
+.btn-primary:active {
+  transform: scale(0.98);
+}
+.btn-primary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 
 .btn-secondary {
-  @apply bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium px-6 py-2.5 rounded-lg transition-colors;
+  background: var(--surface-300);
+  color: var(--fg);
+  font-weight: 500;
+  padding: 0.625rem 1.5rem;
+  border-radius: 0.5rem;
+  transition: all 0.15s ease;
+  border: 1px solid var(--surface-400);
+  cursor: pointer;
+}
+.btn-secondary:hover {
+  background: var(--surface-400);
 }
 
 .input {
-  @apply w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all;
+  width: 100%;
+  background: var(--surface-200);
+  border: 1px solid var(--surface-400);
+  border-radius: 0.5rem;
+  padding: 0.625rem 1rem;
+  font-size: 0.875rem;
+  color: var(--fg);
+  outline: none;
+  transition: all 0.15s ease;
+}
+.input::placeholder {
+  color: var(--fg-muted);
+}
+.input:focus {
+  border-color: var(--fg-muted);
+  box-shadow: 0 0 0 2px var(--ring);
 }
 
 .badge {
-  @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.125rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.025em;
+  border-width: 1px;
 }
-
 .badge-green {
-  @apply badge bg-green-100 text-green-800;
+  background: var(--badge-success-bg);
+  color: var(--badge-success-fg);
+  border-color: var(--badge-success-border);
 }
-
 .badge-blue {
-  @apply badge bg-blue-100 text-blue-800;
+  background: var(--badge-info-bg);
+  color: var(--badge-info-fg);
+  border-color: var(--badge-info-border);
 }
-
 .badge-amber {
-  @apply badge bg-amber-100 text-amber-800;
+  background: var(--badge-warn-bg);
+  color: var(--badge-warn-fg);
+  border-color: var(--badge-warn-border);
+}
+.badge-red {
+  background: var(--badge-danger-bg);
+  color: var(--badge-danger-fg);
+  border-color: var(--badge-danger-border);
 }
 
-.badge-red {
-  @apply badge bg-red-100 text-red-800;
+.spinner {
+  border: 2px solid var(--spinner-track);
+  border-top-color: var(--spinner-head);
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.chip {
+  font-size: 0.75rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.375rem;
+  transition: all 0.15s ease;
+  cursor: pointer;
+  background: var(--chip-bg);
+  color: var(--chip-fg);
+}
+.chip:hover {
+  background: var(--chip-hover);
+  color: var(--fg);
+}
+.chip-active {
+  background: var(--chip-active-bg);
+  color: var(--chip-active-fg);
 }

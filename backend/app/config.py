@@ -4,15 +4,20 @@ Environment-based settings using Pydantic Settings.
 """
 
 from functools import lru_cache
+from pathlib import Path
 from pydantic_settings import BaseSettings
+
+# Resolve .env relative to this file: backend/app/config.py → ../../.env
+_ENV_FILE = Path(__file__).resolve().parent.parent.parent / ".env"
 
 
 class Settings(BaseSettings):
     # ── API Keys ──────────────────────────────────────────────
-    google_api_key: str = ""
+    openai_api_key: str = ""
+    azure_ai_endpoint: str = "https://ai-samirawm76076ai528478683931.services.ai.azure.com/openai/v1/"
 
-    # ── AI Configuration ──────────────────────────────────────
-    ai_model: str = "gemini-3.1-flash-lite-preview"
+    # ── AI Configuration ──────────────────────────────
+    ai_model: str = "grok-4-fast-reasoning"
     ai_thinking_level: str = "LOW"
     ai_temperature_structured: float = 0.3
     ai_temperature_creative: float = 0.8
@@ -30,7 +35,7 @@ class Settings(BaseSettings):
     app_version: str = "1.0.0"
     debug: bool = False
 
-    model_config = {"env_file": ".env", "env_file_encoding": "utf-8"}
+    model_config = {"env_file": str(_ENV_FILE), "env_file_encoding": "utf-8"}
 
 
 @lru_cache

@@ -12,7 +12,7 @@ from pydantic import BaseModel, ValidationError
 from sqlalchemy.orm import Session
 
 from app.ai.base import AIProvider
-from app.ai.gemini import GeminiProvider
+from app.ai.openai_provider import OpenAIProvider
 from app.ai.models import AIResult, AIError
 from app.models.ai_log import AILog
 from app.config import get_settings
@@ -25,10 +25,10 @@ _provider: Optional[AIProvider] = None
 
 
 def get_ai_provider() -> AIProvider:
-    """Factory: returns the configured AI provider. Currently Gemini."""
+    """Factory: returns the configured AI provider. Currently OpenAI (Azure AI Foundry / Grok)."""
     global _provider
     if _provider is None:
-        _provider = GeminiProvider()
+        _provider = OpenAIProvider()
     return _provider
 
 
@@ -155,7 +155,7 @@ class AIService:
                 module=module,
                 prompt_version=prompt_version,
                 model=result.model if result else self.settings.ai_model,
-                provider=result.provider if result else "gemini",
+                provider=result.provider if result else "openai",
                 input_tokens=result.input_tokens if result else 0,
                 output_tokens=result.output_tokens if result else 0,
                 thinking_tokens=result.thinking_tokens if result else 0,
